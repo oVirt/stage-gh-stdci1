@@ -1,4 +1,14 @@
-distros:
-  - el7
-  - fc27
-  - fc28
+substages:
+  - default
+  - classic:
+      report: classic
+  - blueocean:
+      output: Blue Ocean
+  - stdci:
+      reporting:
+        style: STD CI
+  - plain:
+      output: plain text
+script:
+  from file: "automation/{{ stage }}.sh"
+
