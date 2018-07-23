@@ -1,14 +1,24 @@
-substages:
-  - default
-  - classic:
-      report: classic
-  - blueocean:
-      output: Blue Ocean
-  - stdci:
-      reporting:
-        style: STD CI
-  - plain:
-      output: plain text
-script:
-  from file: "automation/{{ stage }}.sh"
-
+stages:
+  - check-patch:
+      substages:
+        - default
+        - classic:
+            report: classic
+        - blueocean:
+            output: Blue Ocean
+        - stdci:
+            reporting:
+              style: STD CI
+        - plain:
+            output: plain text
+        - test-foo:
+            script:
+              from file: "automation/{{ stage }}.{{ substage }}.sh"
+            output: plain text
+        - test-bar:
+            script:
+              from file: "automation/{{ stage }}.{{ substage }}.sh"
+            output: plain text
+      script:
+        from file: "automation/{{ stage }}.sh"
+  - check-merged
