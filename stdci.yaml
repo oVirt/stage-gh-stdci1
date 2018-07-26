@@ -19,6 +19,16 @@ stages:
             script:
               from file: "automation/{{ stage }}.{{ substage }}.sh"
             output: plain text
-      script:
-        from file: "automation/{{ stage }}.sh"
-  - check-merged
+  - check-merged:
+      substages:
+        - bm:
+            runtime requirements:
+              able to run: vms on vms
+        - vm
+        - container:
+            runtime requirements:
+              nesting level: nested vms
+              isolation level: container
+      reporting: classic
+script:
+  from file: "automation/{{ stage }}.sh"
